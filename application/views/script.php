@@ -7,7 +7,7 @@
 
 			tampil_tamu()
 			nama_jenisPengenal() 
-
+			nama_perusahaan() 
 			$('#tabel').DataTable({
 				"language": {
 					"decimal": "",
@@ -85,6 +85,22 @@
 
 						$('#nama_pengenal').html(html);
 						$('#edit_nama_pengenal').html(html); // Assuming you have an element with id "edit_nama_pengenal"
+					}
+				});
+			}
+			function nama_perusahaan() {
+				$.ajax({
+					type: 'ajax',
+					url: 'beranda/perusahaan',
+					async: false,
+					dataType: 'json',
+					success: function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
+							html += '<option value="' + data[i].id + '">' + data[i].nama_perusahaan + '</option>';
+						}
+						$('#nama_perusahaan').html(html);
+						$('#edit_nama_perusahaan').html(html);
 					}
 				});
 			}

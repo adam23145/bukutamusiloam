@@ -18,6 +18,10 @@ class Beranda extends CI_Controller {
     $data = $this->Mtamu->nama_tandaPengenal();
     echo json_encode($data);
   }
+  public function perusahaan(){
+    $data = $this->Mtamu->nama_perusahaan();
+    echo json_encode($data);
+    }
 }
 
 

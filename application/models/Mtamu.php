@@ -25,4 +25,7 @@ class Mtamu extends CI_Model {
   public function nama_tandaPengenal(){
     return $this->db->get('tb_jenis_tanda_pengenal')->result();
   }
+  public function nama_perusahaan(){
+    return $this->db->get('tb_perusahaan')->result();
+  }
 }
