@@ -7,6 +7,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <span class="weight-500 font-20 txt-success ml-25">Daftar Tamu</span>
+                    <button data-toggle="modal" data-target="#form-tambah" class="btn btn-success btn-sm pull-right rounded-circle" id="btn-tambah" style="padding-right: 10px; padding-left: 10px; margin-right: 10px;">+</button>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -37,4 +38,5 @@
 </div>
 
 <?php 
+include 'daftar_tamu_add.php';
 ?>
