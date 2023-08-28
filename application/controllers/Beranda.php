@@ -21,7 +21,21 @@ class Beranda extends CI_Controller {
   public function perusahaan(){
     $data = $this->Mtamu->nama_perusahaan();
     echo json_encode($data);
-    }
+  }
+  public function simpan(){
+    if($this->Mtamu->validation("save")){ // Jika validasi sukses atau hasil validasi adalah true
+      $this->Mtamu->save();
+      $callback = array(
+        'status'=>'sukses'
+      );
+      }else{
+      $callback = array(
+        'status'=>'gagal'
+      );
+      }
+    
+      echo json_encode($callback);
+    }  
 }
 
 

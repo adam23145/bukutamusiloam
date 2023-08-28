@@ -104,6 +104,60 @@
 					}
 				});
 			}
+			$('#btn-tambah').click(function() {
+				var arg = {
+					resultFunction: function(result) {
+						var array_tamu = result.code;
+						console.log(array_tamu);
+						$('#input_nama').val("asdads");
+						// document.getElementById("input_nama").innerHTML = array_tamu[0];
+						// document.getElementById("input_jeniskelamin").innerHTML = array_tamu[1];
+						// document.getElementById("input_alamat").innerHTML = array_tamu[2];
+						// document.getElementById("input_nominal").innerHTML = array_tamu[3];
+						// document.getElementById("result_tamu").innerHTML = array_tamu;
+					}
+				};
+			})
+			$('#btn-simpan').click(function() {
+				$.ajax({
+					url: 'Beranda/simpan',
+					type: 'POST',
+					data: $("#form-tambah form").serialize(),
+					dataType: 'json',
+					beforeSend: function() {
+						// You can add any actions you want to perform before sending the request.
+					},
+					success: function(response) {
+						// Reset input field display
+						// Common actions after success or failure
+						tampil_tamu();
+						nama_jenisPengenal();
+
+						if (response.status == 'sukses') {
+							// Show success message
+							document.getElementById("input_lainnya").style.display = "none";
+							swal({
+								title: "Sukses",
+								type: "success",
+								text: "Anda Telah Berhasil Mengiputkan Data",
+								confirmButtonColor: "#469408"
+							});
+						} else {
+							// Show error message
+							swal({
+								title: "Gagal",
+								type: "error",
+								text: "Data Yang Di Inputkan Harus Valid",
+								showConfirmButton: false,
+								timer: 1500
+							});
+						}
+
+						// Always close the modal after success or failure
+						$('#form-tambah').modal('hide');
+					}
+				});
+			});
 
 		})
 	</script>

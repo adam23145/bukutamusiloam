@@ -28,4 +28,65 @@ class Mtamu extends CI_Model {
   public function nama_perusahaan(){
     return $this->db->get('tb_perusahaan')->result();
   }
+  public function validation($mode){
+    $this->load->library('form_validation');
+    if($mode == "save"){
+      $this->form_validation->set_rules('input_nama', 'Nama', 'required|max_length[50]');
+      $this->form_validation->set_rules('input_jeniskelamin', 'Jenis Kelamin', 'required');
+      $this->form_validation->set_rules('input_nomor_iden', 'Nomor iden', 'required');
+      $this->form_validation->set_rules('input_namaperusahaan', 'Nama Perusahaan', 'required');
+      $this->form_validation->set_rules('input_keperluan', 'Keperluan', 'required');
+      $this->form_validation->set_rules('input_nomor_telepon', 'Nomor Telepon', 'required');
+      $this->form_validation->set_rules('input_namapengenal', 'Jenis Pengenal', 'required');
+      $jenis_pengenal = $this->input->post('input_namapengenal');
+      if ($jenis_pengenal === "other") {
+        if (empty($jenis_tanda_pengenal)) {
+          $this->form_validation->set_rules('input_lainnya', 'Jenis Pengenal', 'required');
+        }
+      }
+  }
+  if($this->form_validation->run()){return true;}
+  else{return false;}
+  }
+  public function save(){
+    $data = array(
+        "nama" => $this->input->post('input_nama'),
+        "jenis_kelamin" => $this->input->post('input_jeniskelamin'),
+        "nomer_identitas" => $this->input->post('input_nomor_iden'),
+        "perusahaan" => $this->input->post('input_namaperusahaan'),
+        "keperluan" => $this->input->post('input_keperluan'),
+        "nomor_telepon" => $this->input->post('input_nomor_telepon'),
+    );
+
+      $jenis_pengenal = $this->input->post('input_namapengenal');
+      if ($jenis_pengenal === "other") {
+          $jenis_tanda_pengenal = $this->input->post('input_lainnya');
+          
+          if (!empty($jenis_tanda_pengenal)) {
+              $data["jenis_tanda_pengenal"] = strtoupper($jenis_tanda_pengenal);
+      
+              // Insert data into 'tb_tamu' table
+              $this->db->insert('tb_tamu', $data);
+              
+              // Check if the 'jenis_pengenal' already exists in 'tb_jenis_tanda_pengenal' table
+              $existing_jenis_tanda = $this->db->get_where('tb_jenis_tanda_pengenal', array('jenis_pengenal' => $jenis_tanda_pengenal))->row();
+              
+              if (!$existing_jenis_tanda) {
+                  // Insert data into 'tb_jenis_tanda_pengenal' table
+                  $data_jenis_tanda = array(
+                      "jenis_pengenal" => strtoupper($jenis_tanda_pengenal)
+                  );
+                  $this->db->insert('tb_jenis_tanda_pengenal', $data_jenis_tanda);
+              }
+          } else {
+
+          }
+      } else {
+          $jenis_tanda_pengenal = strtoupper($jenis_pengenal);
+          $data["jenis_tanda_pengenal"] = strtoupper($jenis_tanda_pengenal);
+      
+          // Insert data into 'tb_tamu' table
+          $this->db->insert('tb_tamu', $data);
+      }
+  }
 }
