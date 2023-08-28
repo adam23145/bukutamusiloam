@@ -22,4 +22,7 @@ class Mtamu extends CI_Model {
     JOIN tb_perusahaan p ON t.perusahaan = p.id
     JOIN tb_jenis_tanda_pengenal jtp ON t.jenis_tanda_pengenal = jtp.jenis_pengenal;')->result();
   }
+  public function nama_tandaPengenal(){
+    return $this->db->get('tb_jenis_tanda_pengenal')->result();
+  }
 }
