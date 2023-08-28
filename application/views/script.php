@@ -6,6 +6,7 @@
 		$(document).ready(function() {
 
 			tampil_tamu()
+			nama_jenisPengenal() 
 
 			$('#tabel').DataTable({
 				"language": {
@@ -67,5 +68,26 @@
 
 				});
 			}
+			function nama_jenisPengenal() {
+				$.ajax({
+					type: 'ajax',
+					url: 'beranda/jenisTandaPengenal',
+					async: false,
+					dataType: 'json',
+					success: function(data) {
+						var html = '';
+						for (var i = 0; i < data.length; i++) {
+							html += '<option value="' + data[i].jenis_pengenal + '">' + data[i].jenis_pengenal + '</option>';
+						}
+
+						// Add the "Lainnya" option
+						html += '<option value="other">Lainnya</option>';
+
+						$('#nama_pengenal').html(html);
+						$('#edit_nama_pengenal').html(html); // Assuming you have an element with id "edit_nama_pengenal"
+					}
+				});
+			}
+
 		})
 	</script>
