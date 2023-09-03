@@ -59,6 +59,9 @@
 								'<td>' + data[i].nama_perusahaan + '</td>' +
 								'<td>' + dateTime_masuk + '</td>' +
 								'<td>' + dateTIme_keluar + '</td>' +
+								'<td>' +
+								'<button class="btn btn-xs btn-primary" style="padding-left: 10px;padding-right: 10px; margin-left: 3px" data-toggle="modal" data-target="#form-view" data-id="' + data[i].id_tamu + '" data-nama="' + data[i].nama + '" data-jk="' + data[i].jenis_kelamin + '" data-jk="' + data[i].jenis_kelamin + '" data-ni="' + data[i].nomer_identitas + '" data-kn="' + data[i].keperluan + '" data-pn="' + data[i].nama_perusahaan + '" data-jkr="'+ data[i].jam_keluar + '" data-jmk="'+ data[i].jam_masuk + '" data-nt="' + data[i].nomor_telepon + '" data-jp="' + data[i].jenis_pengenal + '"> <i class="fa fa-eye"></i> </button>' +
+								'</td>' +
 								'</td>' +
 								'</tr>'
 							no++;
@@ -104,6 +107,16 @@
 					}
 				});
 			}
+			$('#form-keluar').on('show.bs.modal', function(event) {
+				var html1 = '';
+				var button = $(event.relatedTarget);
+				var id = button.data('id');
+				var nama = button.data('nama');
+				html1 += '<p class="text-center" style="font-weight: bold; font-size: 18px;">' + nama + '</p>';
+				$('#keluar_idtamu').val(id);
+				$('#nama_keluar').val(nama);
+				$('#nama_keluar2').html(html1);
+			})
 			$('#btn-tambah').click(function() {
 				var arg = {
 					resultFunction: function(result) {
@@ -158,6 +171,80 @@
 					}
 				});
 			});
+			$('#form-view').on('show.bs.modal', function(event) {
+				var html1 = '';
+				var button = $(event.relatedTarget);
+				var id = button.data('id');
+				var nama = button.data('nama');
+				var jk = button.data('jk');
+				var ni = button.data('ni');
+				var kn = button.data('kn');
+				var pn = button.data('pn');
+				var jmk = button.data('jmk');
+				var jkr = button.data('jkr');
+				var nt = button.data('nt');
+				var jp = button.data('jp');
+				if (jkr === "00:00:00") {
+					var jkr = "-";
+				}
+				html1 += '<p class="text-center">Nama</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + nama + '</p></br>' + 
+				'<p class="text-center">Jenis Kelamin</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + jk + '</p></br>' + 
+				'<p class="text-center">Jenis Pengenal</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + jp + '</p></br>' +
+				'<p class="text-center">Nomor Identitas</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + ni + '</p></br>' + 
+				'<p class="text-center">Perusahaan</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + pn + '</p></br>' +
+				'<p class="text-center">Nomor Telepon</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + nt + '</p></br>' + 
+				'<p class="text-center">Keperluan</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + kn + '</p></br>' + 
+				'<p class="text-center">Jam Masuk</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + jmk + '</p></br>' +
+				'<p class="text-center">Jam Keluar</p>'+
+				'<p class="text-center" style="font-weight: bold; font-size: 18px;">' + jkr + '</p></br>' 
+				;
+				$('#id_tamu').val(id);
+				$('#detail_tamu').html(html1);
+			})
+			$('#btn-keluar').click(function() {
+				id = $('#keluar_idtamu').val();
+				$.ajax({
+					url: 'beranda/ubahKeluar/' + id, // URL tujuan
+					dataType: 'json',
+					beforeSend: function() {},
+					success: function(response) { // Ketika proses pengiriman berhasil
+						if (response.status == 'sukses') {
+							// Tampilkan Tabel
+							tampil_tamu();
+							// pesan sukses
+							swal({
+								title: "Sukses",
+								type: "success",
+								text: "Anda Telah Berhasil Memasukan Data Keluar",
+								confirmButtonColor: "#469408"
+							});
 
+							$('#form-keluar').modal('hide')
+						} else {
+							// Tampilkan Tabel
+							tampil_tamu();
+							// pesan gagal
+							swal({
+								title: "Gagal",
+								type: "error",
+								text: "Gagal melakukan proses keluar",
+								showConfirmButton: false,
+								timer: 1500
+							});
+
+							$('#form-keluar').modal('hide')
+						}
+					}
+				})
+			})
 		})
+		
 	</script>

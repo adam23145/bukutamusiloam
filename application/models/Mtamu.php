@@ -89,4 +89,9 @@ class Mtamu extends CI_Model {
           $this->db->insert('tb_tamu', $data);
       }
   }
+  public function editKeluar($id) {
+    $this->db->set('jam_keluar', 'NOW()', false); // Use false as the third argument to prevent CodeIgniter from escaping the query
+    $this->db->where('id_tamu', $id);
+    $this->db->update('tb_tamu');
+}
 }

@@ -24,6 +24,7 @@
                                         <th>Perusahaan</th>
                                         <th>Jam Masuk</th>
                                         <th>Jam Keluar</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tampil_data">
@@ -39,4 +40,6 @@
 
 <?php 
 include 'daftar_tamu_add.php';
+include 'daftar_tamu_view.php';
+include 'daftar_tamu_keluar.php';
 ?>
