@@ -3,6 +3,10 @@ $status = $this->session->userdata("status");
 if (isset($status) != "login") {
 	redirect('login');
 }
+$sidebar = 1;
+if (isset($_POST['sidebar'])) {
+    $sidebar = $_POST['sidebar'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +27,13 @@ if (isset($status) != "login") {
 				<?php include 'sidebar.php'; ?>
 					<!-- Row -->
 					<div class="col-lg-10">
-						<?php 
+						<?php
+						if ($sidebar == 1) {
 							include 'daftar_tamu.php';
-						 ?>
+						} else if($sidebar == 2) {
+							include 'daftar_vendor.php';
+						}
+						?>
 					</div>
 					<!-- /Row -->
 				</div>
