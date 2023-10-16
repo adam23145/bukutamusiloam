@@ -52,6 +52,11 @@
 							if (dateTIme_keluar === "00:00:00") {
 								dateTIme_keluar = '<button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#form-keluar" data-id="' + data[i].id_tamu + '"  data-nama="' + data[i].nama + '">Keluar</button>';
 							}
+							if(data[i].note_vendor != ""){
+							note_vendor = '<button class="btn btn-xs btn-warning" style="padding-left: 10px;padding-right: 10px; margin-left: 3px" data-toggle="modal" data-target="#form-view-Note" data-nv="' + data[i].note_vendor + '"> <i class="fa fa-book"></i> </button>';
+						}else{
+							note_vendor = "";
+						}
 							html += '<tr id="' + data[i].id_tamu + '">' +
 								'<td>' + no + '</td>' +
 								'<td>' + data[i].wkt + '</td>' +
@@ -60,8 +65,11 @@
 								'<td>' + dateTime_masuk + '</td>' +
 								'<td>' + dateTIme_keluar + '</td>' +
 								'<td>' +
-								'<button class="btn btn-xs btn-primary" style="padding-left: 10px;padding-right: 10px; margin-left: 3px" data-toggle="modal" data-target="#form-view" data-id="' + data[i].id_tamu + '" data-nama="' + data[i].nama + '" data-jk="' + data[i].jenis_kelamin + '" data-jk="' + data[i].jenis_kelamin + '" data-ni="' + data[i].nomer_identitas + '" data-kn="' + data[i].keperluan + '" data-pn="' + data[i].nama_perusahaan + '" data-jkr="'+ data[i].jam_keluar + '" data-jmk="'+ data[i].jam_masuk + '" data-nt="' + data[i].nomor_telepon + '" data-jp="' + data[i].jenis_pengenal + '"> <i class="fa fa-eye"></i> </button>' +
-								'</td>' +
+								'<button class="btn btn-xs btn-success " style="padding-left: 10px;padding-right: 10px;" data-toggle="modal" data-target="#form-edit" id="btn-edit" data-id="' + data[i].id_tamu + '" data-nama="' + data[i].nama + '" data-jk="' + data[i].jenis_kelamin + '" data-jk="' + data[i].jenis_kelamin + '" data-ni="' + data[i].nomer_identitas + '" data-kn="' + data[i].keperluan + '" data-pn="' + data[i].perusahaan + '" data-nt="' + data[i].nomor_telepon + '" data-jp="' + data[i].jenis_pengenal + '"data-nv="' + data[i].note_vendor + '"> <i class="fa fa-pencil"></i></button> ' +
+							'<button class="btn btn-xs btn-danger" style="padding-left: 10px;padding-right: 10px;" data-toggle="modal" data-target="#form-hapus" data-id="' + data[i].id_tamu + '"> <i class="fa fa-trash"></i> </button>' +
+							'<button class="btn btn-xs btn-primary" style="padding-left: 10px;padding-right: 10px; margin-left: 3px" data-toggle="modal" data-target="#form-view" data-id="' + data[i].id_tamu + '" data-nama="' + data[i].nama + '" data-jk="' + data[i].jenis_kelamin + '" data-jk="' + data[i].jenis_kelamin + '" data-ni="' + data[i].nomer_identitas + '" data-kn="' + data[i].keperluan + '" data-pn="' + data[i].nama_perusahaan + '" data-jkr="' + data[i].jam_keluar + '" data-jmk="' + data[i].jam_masuk + '" data-nt="' + data[i].nomor_telepon + '" data-jp="' + data[i].jenis_pengenal + '"data-nv="' + data[i].note_vendor + '"> <i class="fa fa-eye"></i> </button>' +
+							note_vendor + 
+							'</td>' +
 								'</td>' +
 								'</tr>'
 							no++;
